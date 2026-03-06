@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '/logo.webp';
 
 interface LogoProps {
   className?: string;
@@ -8,7 +7,7 @@ interface LogoProps {
 export const Logo: React.FC<LogoProps> = ({ className = "h-12" }) => {
   return (
     <img
-      src={logo}
+      src="/logo.webp"
       alt="Iridium"
       className={`${className} object-contain`}
       onError={(e) => {
