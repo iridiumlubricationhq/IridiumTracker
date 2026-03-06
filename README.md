@@ -1,6 +1,6 @@
 # Iridium Tracker — Precision Service Intelligence
 
-![Iridium Workshop Brand](public/logo.webp)
+![Iridium Workshop Brand](public/iridium-logo.webp)
 
 **Iridium Tracker** is a bespoke, high-fidelity vehicle service tracking system engineered specifically for the Iridium Workshop. It bridges the gap between mechanical precision and digital clarity, offering real-time insights into service workflows.
 
