@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Logo } from '../components/Logo';
 import { Wrench } from 'lucide-react';
 
 export default function Login() {
@@ -42,10 +43,7 @@ export default function Login() {
         
         <div className="flex justify-center mb-10">
           <div className="relative">
-            <img src="/iridium-logo.webp" alt="Iridium" className="h-12 object-contain" onError={(e) => {
-              e.currentTarget.style.display = 'none';
-              e.currentTarget.nextElementSibling?.classList.remove('hidden');
-            }} />
+            <Logo className="h-12" />
             <div className="hidden flex items-center gap-3">
               <div className="w-14 h-14 bg-gradient-to-br from-[#b69951] to-[#8a733d] rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(182,153,81,0.3)]">
                 <Wrench className="w-7 h-7 text-black" />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
+import { Logo } from '../components/Logo';
 import { Plus, LogOut, QrCode, Trash2, CheckCircle2, Clock, Car, Wrench, Search, Moon, Sun, Globe } from 'lucide-react';
 import { format, addHours } from 'date-fns';
 import { motion, AnimatePresence } from 'motion/react';
@@ -216,11 +217,7 @@ export default function Dashboard() {
       )}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <img src="/iridium-logo.webp" alt="Iridium" className="h-8 object-contain" onError={(e) => {
-              // Fallback if logo is missing
-              e.currentTarget.style.display = 'none';
-              e.currentTarget.nextElementSibling?.classList.remove('hidden');
-            }} />
+            <Logo className="h-8" />
             <div className="hidden flex items-center gap-2">
               <div className="w-8 h-8 bg-gradient-to-br from-[#b69951] to-[#8a733d] rounded-lg flex items-center justify-center">
                 <Wrench className="w-4 h-4 text-black" />
