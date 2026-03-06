@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
-import { Logo } from '../components/Logo';
+
 import { Plus, LogOut, QrCode, Trash2, CheckCircle2, Clock, Car, Wrench, Search, Moon, Sun, Globe } from 'lucide-react';
 import { format, addHours } from 'date-fns';
 import { motion, AnimatePresence } from 'motion/react';
+import { Logo } from '../components/Logo';
 import { STATUS_LIVE_PHRASES, STATUS_SUBTITLES, STATUS_NAMES, UI_TRANSLATIONS } from '../constants/statusPhrases';
 import clsx from 'clsx';
 

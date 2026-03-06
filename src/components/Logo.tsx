@@ -4,15 +4,17 @@ interface LogoProps {
   className?: string;
 }
 
-export const Logo: React.FC<LogoProps> = ({ className = "h-12" }) => {
+export function Logo({ className = '' }: LogoProps) {
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  // Ensure we don't get double slashes if baseUrl is '/'
+  const imagePath = `${baseUrl === '/' ? '' : baseUrl}/logo.webp`;
+  
   return (
-    <img
-      src="/logo.webp"
-      alt="Iridium"
-      className={`${className} object-contain`}
-      onError={(e) => {
-        e.currentTarget.style.display = 'none';
-      }}
+    <img 
+      src={imagePath} 
+      alt="Iridium Logo" 
+      className={`object-contain ${className}`}
+      referrerPolicy="no-referrer"
     />
   );
-};
+}

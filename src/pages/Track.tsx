@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { Logo } from '../components/Logo';
+
 import { Car, CheckCircle2, Circle, Clock, Wrench, Moon, Sun, Globe } from 'lucide-react';
 import { STATUS_LIVE_PHRASES, STATUS_SUBTITLES, UI_TRANSLATIONS, STATUS_NAMES } from '../constants/statusPhrases';
+import { Logo } from '../components/Logo';
 import { motion, AnimatePresence } from 'motion/react';
 import clsx from 'clsx';
 
@@ -299,7 +300,7 @@ export default function Track() {
       )}>
         <div className="max-w-md mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Logo className="h-7" />
+            <Logo className="h-8" />
             <div className="hidden flex items-center gap-2">
               <div className="w-8 h-8 bg-gradient-to-br from-[#b69951] to-[#8a733d] rounded-lg flex items-center justify-center">
                 <Wrench className="w-4 h-4 text-black" />
