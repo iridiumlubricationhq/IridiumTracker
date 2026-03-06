@@ -29,13 +29,16 @@ db.exec(`
   );
 `);
 
-// Insert default advisor if not exists
-const checkAdvisor = db.prepare('SELECT * FROM advisors WHERE username = ?').get('admin');
+// Insert or update default advisor based on environment variables
+const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+const adminPassword = process.env.ADMIN_PASSWORD || 'Iridium123';
+
+const checkAdvisor = db.prepare('SELECT * FROM advisors WHERE username = ?').get(adminUsername);
 if (!checkAdvisor) {
-  db.prepare('INSERT INTO advisors (username, password) VALUES (?, ?)').run('admin', 'Iridium123');
+  db.prepare('INSERT INTO advisors (username, password) VALUES (?, ?)').run(adminUsername, adminPassword);
 } else {
-  // Ensure password is updated to Iridium123 as requested
-  db.prepare('UPDATE advisors SET password = ? WHERE username = ?').run('Iridium123', 'admin');
+  // Ensure password is updated to match environment variable
+  db.prepare('UPDATE advisors SET password = ? WHERE username = ?').run(adminPassword, adminUsername);
 }
 
 async function startServer() {
