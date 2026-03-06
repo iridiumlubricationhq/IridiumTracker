@@ -298,7 +298,7 @@ export default function Track() {
       )}>
         <div className="max-w-md mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/brand-iridium.webp" alt="Iridium" className="h-7 object-contain" onError={(e) => {
+            <img src="/logo.webp" alt="Iridium" className="h-7 object-contain" onError={(e) => {
               e.currentTarget.style.display = 'none';
               e.currentTarget.nextElementSibling?.classList.remove('hidden');
             }} />

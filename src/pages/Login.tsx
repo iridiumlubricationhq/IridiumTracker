@@ -42,7 +42,7 @@ export default function Login() {
         
         <div className="flex justify-center mb-10">
           <div className="relative">
-            <img src="/brand-iridium.webp" alt="Iridium" className="h-12 object-contain" onError={(e) => {
+            <img src="/logo.webp" alt="Iridium" className="h-12 object-contain" onError={(e) => {
               e.currentTarget.style.display = 'none';
               e.currentTarget.nextElementSibling?.classList.remove('hidden');
             }} />
