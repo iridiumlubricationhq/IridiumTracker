@@ -1,0 +1,281 @@
+export const STATUS_LIVE_PHRASES: Record<string, Record<number, string[]>> = {
+  ms: {
+    0: [
+      'Mendaftarkan kenderaan ke dalam sistem...',
+      'Menyemak rekod servis terdahulu...',
+      'Menyediakan borang pemeriksaan digital...',
+      'Menugaskan juruteknik bertauliah Iridium...',
+      'Menyusun jadual kerja bengkel hari ini...',
+      'Mengesahkan butiran pelanggan & kenderaan...',
+      'Menyediakan tag kunci kenderaan...',
+      'Memasukkan data ke dalam pangkalan data...'
+    ],
+    1: [
+      'Memeriksa sistem enjin utama & bendalir...',
+      'Menilai keadaan brek, pad & cakera...',
+      'Menguji tahap cecair penyejuk & brek...',
+      'Menyemak tekanan & kedalaman bunga tayar...',
+      'Mengenalpasti isu teknikal melalui sensor...',
+      'Melakukan imbasan komputer diagnostik penuh...',
+      'Meneliti sebarang kebocoran minyak bawah enjin...',
+      'Memeriksa keadaan bateri & sistem alternator...',
+      'Menyemak sistem lampu & isyarat kenderaan...'
+    ],
+    2: [
+      'Menukar minyak enjin sintetik gred premium...',
+      'Mengganti penapis minyak dengan unit baru...',
+      'Melaraskan komponen mekanikal yang longgar...',
+      'Mengetatkan skru & bolt mengikut tork piawaian...',
+      'Melakukan pelinciran pada sendi & engsel...',
+      'Menjalankan prosedur standard Iridium Service...',
+      'Membersihkan palam pencucuh (spark plugs)...',
+      'Menyemak ketegangan tali sawat (beltings)...',
+      'Membersihkan penapis udara enjin...'
+    ],
+    3: [
+      'Mengambil alat ganti tulen dari stor Iridium...',
+      'Memasang komponen prestasi yang baru...',
+      'Menentukur sensor elektronik yang diganti...',
+      'Memastikan pemasangan yang kemas & selamat...',
+      'Menguji kefungsian alat ganti baru dipasang...',
+      'Menyemak kesesuaian bahagian teknikal spesifik...',
+      'Menyambung semula litar elektrik & soket...',
+      'Membuang udara dalam sistem brek (bleeding)...',
+      'Mengganti penapis kabin aircond...'
+    ],
+    4: [
+      'Melakukan ujian jalan raya untuk prestasi...',
+      'Menyemak semula semua kerja teknikal dilakukan...',
+      'Memastikan tiada sebarang kebocoran bendalir...',
+      'Mengesahkan kualiti mengikut piawaian Iridium...',
+      'Menandatangani sijil pemeriksaan kualiti akhir...',
+      'Pemeriksaan keselamatan menyeluruh (QC)...',
+      'Menetapkan semula (reset) komputer servis...',
+      'Memastikan semua skru roda diketatkan semula...',
+      'Menyemak tahap emisi & bunyi enjin...'
+    ],
+    5: [
+      'Membasuh badan kenderaan dengan syampu khas...',
+      'Membersihkan ruang dalaman & vakum permaidani...',
+      'Mengilatkan rim tayar & memberi lapisan pelindung...',
+      'Menyembur wangian segar eksklusif Iridium...',
+      'Memastikan kereta berkilat & bebas habuk...',
+      'Menyusun barang peribadi pelanggan dengan rapi...',
+      'Mengelap cermin depan & belakang sehingga jernih...',
+      'Membersihkan papan pemuka (dashboard)...',
+      'Menyapu pengilat pada bahagian plastik luaran...'
+    ]
+  },
+  en: {
+    0: [
+      'Registering vehicle in the system...',
+      'Checking previous service records...',
+      'Preparing digital inspection forms...',
+      'Assigning certified Iridium technician...',
+      'Organizing workshop schedule for today...',
+      'Confirming customer & vehicle details...',
+      'Preparing vehicle key tags...',
+      'Entering data into the database...'
+    ],
+    1: [
+      'Checking main engine systems & fluids...',
+      'Evaluating brake pads & discs condition...',
+      'Testing coolant & brake fluid levels...',
+      'Checking tire pressure & tread depth...',
+      'Identifying technical issues via sensors...',
+      'Performing full diagnostic computer scan...',
+      'Inspecting for oil leaks under the engine...',
+      'Checking battery & alternator condition...',
+      'Verifying vehicle lights & signals...'
+    ],
+    2: [
+      'Changing to premium grade synthetic engine oil...',
+      'Replacing oil filter with a new unit...',
+      'Adjusting loose mechanical components...',
+      'Tightening screws & bolts to torque specs...',
+      'Lubricating joints & hinges...',
+      'Executing Iridium Service standard procedures...',
+      'Cleaning spark plugs...',
+      'Checking beltings tension...',
+      'Cleaning engine air filter...'
+    ],
+    3: [
+      'Retrieving genuine parts from Iridium store...',
+      'Installing new performance components...',
+      'Calibrating replaced electronic sensors...',
+      'Ensuring neat & secure installation...',
+      'Testing functionality of newly installed parts...',
+      'Verifying specific technical part compatibility...',
+      'Reconnecting electrical circuits & sockets...',
+      'Bleeding air from the brake system...',
+      'Replacing aircond cabin filter...'
+    ],
+    4: [
+      'Performing road test for performance...',
+      'Reviewing all technical work performed...',
+      'Ensuring no fluid leaks...',
+      'Confirming quality to Iridium standards...',
+      'Signing final quality inspection certificate...',
+      'Comprehensive safety check (QC)...',
+      'Resetting service computer...',
+      'Ensuring all wheel bolts are retightened...',
+      'Checking emission levels & engine noise...'
+    ],
+    5: [
+      'Washing vehicle body with special shampoo...',
+      'Cleaning interior & vacuuming carpets...',
+      'Polishing tire rims & applying protectant...',
+      'Spraying exclusive Iridium fresh fragrance...',
+      'Ensuring car is shiny & dust-free...',
+      'Neatly organizing customer personal items...',
+      'Wiping front & rear glass until crystal clear...',
+      'Cleaning the dashboard...',
+      'Applying polish to exterior plastic parts...'
+    ]
+  }
+};
+
+export const STATUS_SUBTITLES: Record<string, Record<number, string>> = {
+  ms: {
+    0: 'Kenderaan anda telah selamat diterima di pusat servis kami.',
+    1: 'Pakar kami sedang melakukan pemeriksaan menyeluruh.',
+    2: 'Proses servis sedang dijalankan mengikut piawaian.',
+    3: 'Alat ganti sedang dipasang oleh juruteknik bertauliah.',
+    4: 'Pemeriksaan kualiti akhir untuk memastikan segalanya sempurna.',
+    5: 'Kenderaan anda sedang dibersihkan dan dikilatkan.',
+    6: 'Semua urusan telah selesai. Terima kasih!'
+  },
+  en: {
+    0: 'Your vehicle has been safely received at our service center.',
+    1: 'Our experts are performing a comprehensive inspection.',
+    2: 'Service process is being carried out according to standards.',
+    3: 'Parts are being installed by certified technicians.',
+    4: 'Final quality inspection to ensure everything is perfect.',
+    5: 'Your vehicle is being cleaned and polished.',
+    6: 'Everything is complete. Thank you!'
+  }
+};
+
+export const UI_TRANSLATIONS: Record<string, Record<string, string | string[]>> = {
+  ms: {
+    liveStatus: 'Status Langsung',
+    service: 'Servis',
+    estimatedCompletion: 'Anggaran Siap',
+    done: 'Selesai',
+    readyForPickup: 'Sedia untuk Diambil',
+    vehicleReady: 'Kenderaan anda sedia untuk diambil. Terima kasih.',
+    progress: 'Perkembangan',
+    timeline: 'Garis Masa Status',
+    jobNotFound: 'Tugasan Tidak Ditemui',
+    invalidLink: 'Pautan penjejakan ini tidak sah atau telah tamat tempoh.',
+    loading: 'Memuatkan...',
+    chooseTheme: 'Pilih Tema',
+    chooseLanguage: 'Pilih Bahasa',
+    continue: 'Teruskan',
+    light: 'Cerah',
+    dark: 'Gelap',
+    english: 'English',
+    malay: 'Bahasa Melayu',
+    welcome: 'Selamat Datang ke Iridium',
+    setupExperience: 'Sila pilih pilihan anda untuk pengalaman terbaik.',
+    activeJobs: 'Tugasan Aktif',
+    manageJobs: 'Urus dan pantau perkembangan servis kenderaan pelanggan.',
+    searchPlaceholder: 'Cari No. Plat atau Model...',
+    newJob: 'Tugasan Baru',
+    logout: 'Log Keluar',
+    deleteAll: 'Padam Semua',
+    deleteAllConfirm: 'Adakah anda pasti mahu memadam SEMUA tugasan? Tindakan ini tidak boleh dibatalkan.',
+    plateNumber: 'Nombor Plat',
+    carModel: 'Model Kenderaan',
+    serviceType: 'Jenis Servis',
+    estimatedCompletionLabel: 'Anggaran Siap',
+    createJob: 'Cipta Tugasan',
+    processing: 'Memproses...',
+    deleteJobTitle: 'Padam Tugasan',
+    deleteJobConfirm: 'Adakah anda pasti mahu memadam tugasan ini? Tindakan ini tidak boleh dibatalkan.',
+    cancel: 'Batal',
+    delete: 'Padam',
+    qrTracking: 'QR Penjejakan',
+    scanToTrack: 'Imbas untuk melihat perkembangan langsung untuk',
+    openLink: 'Buka Pautan',
+    close: 'Tutup',
+    noActiveJobs: 'Tiada tugasan aktif',
+    createFirstJob: 'Cipta tugasan baru untuk mula menjejak.',
+    nextStep: 'Langkah Seterusnya',
+    created: 'Dicipta',
+    newEntry: 'Kemasukan Baru',
+    serviceOptions: ['Servis Minor', 'Servis Major', 'Diagnostik', 'Aircond', 'Enjin'],
+    carBrands: ['Proton', 'Perodua', 'Toyota', 'Honda', 'Mazda', 'BMW', 'Mercedes']
+  },
+  en: {
+    liveStatus: 'Live Status',
+    service: 'Service',
+    estimatedCompletion: 'Estimated Completion',
+    done: 'Done',
+    readyForPickup: 'Ready for Pickup',
+    vehicleReady: 'Your vehicle is ready for pickup. Thank you.',
+    progress: 'Progress',
+    timeline: 'Status Timeline',
+    jobNotFound: 'Job Not Found',
+    invalidLink: 'This tracking link is invalid or has expired.',
+    loading: 'Loading...',
+    chooseTheme: 'Choose Theme',
+    chooseLanguage: 'Choose Language',
+    continue: 'Continue',
+    light: 'Light',
+    dark: 'Dark',
+    english: 'English',
+    malay: 'Bahasa Melayu',
+    welcome: 'Welcome to Iridium',
+    setupExperience: 'Please choose your preferences for the best experience.',
+    activeJobs: 'Active Jobs',
+    manageJobs: 'Manage and monitor customer vehicle service progress.',
+    searchPlaceholder: 'Search Plate No. or Model...',
+    newJob: 'New Job',
+    logout: 'Logout',
+    deleteAll: 'Delete All',
+    deleteAllConfirm: 'Are you sure you want to delete ALL jobs? This action cannot be undone.',
+    plateNumber: 'Plate Number',
+    carModel: 'Vehicle Model',
+    serviceType: 'Service Type',
+    estimatedCompletionLabel: 'Estimated Completion',
+    createJob: 'Create Job',
+    processing: 'Processing...',
+    deleteJobTitle: 'Delete Job',
+    deleteJobConfirm: 'Are you sure you want to delete this job? This action cannot be undone.',
+    cancel: 'Cancel',
+    delete: 'Delete',
+    qrTracking: 'Tracking QR',
+    scanToTrack: 'Scan to view live progress for',
+    openLink: 'Open Link',
+    close: 'Close',
+    noActiveJobs: 'No active jobs',
+    createFirstJob: 'Create a new job to start tracking.',
+    nextStep: 'Next Step',
+    created: 'Created',
+    newEntry: 'New Entry',
+    serviceOptions: ['Minor Service', 'Major Service', 'Diagnostic', 'Aircond', 'Engine'],
+    carBrands: ['Proton', 'Perodua', 'Toyota', 'Honda', 'Mazda', 'BMW', 'Mercedes']
+  }
+};
+
+export const STATUS_NAMES: Record<string, string[]> = {
+  ms: [
+    'Kenderaan Diterima',
+    'Pemeriksaan Sedang Dijalankan',
+    'Servis Sedang Dijalankan',
+    'Penggantian Alat Ganti',
+    'Pemeriksaan Kualiti',
+    'Cucian Kereta',
+    'Sedia untuk Diambil'
+  ],
+  en: [
+    'Vehicle Received',
+    'Inspection in Progress',
+    'Service in Progress',
+    'Parts Replacement',
+    'Quality Check',
+    'Car Wash',
+    'Ready for Pickup'
+  ]
+};
