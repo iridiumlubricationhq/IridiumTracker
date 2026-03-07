@@ -1,53 +1,101 @@
-import React, { useState } from 'react';
-import logoPng from '../assets/logo.png';
-import logoWebp from '../assets/logo.webp';
-import logoJpg from '../assets/logo.jpg';
+import React from 'react';
 
 interface LogoProps {
   className?: string;
 }
 
 export function Logo({ className = '' }: LogoProps) {
-  // Priority order: WebP -> PNG -> JPG
-  // Note: Modern browsers support WebP, but we keep PNG/JPG as fallbacks just in case
-  // the specific file is missing or corrupted.
-  const logos = [logoWebp, logoPng, logoJpg];
-  
-  const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
-  const [hasError, setHasError] = useState(false);
-
-  const handleError = () => {
-    console.warn(`[Logo System] Failed to load logo format: ${currentLogoIndex}`);
-    
-    if (currentLogoIndex < logos.length - 1) {
-      // Try next format
-      setCurrentLogoIndex(prev => prev + 1);
-    } else {
-      // All formats failed
-      console.error('[Logo System] All logo formats failed to load.');
-      setHasError(true);
-    }
-  };
-
-  if (hasError) {
-    // Fallback UI if all images fail
-    return (
-      <div 
-        className={`flex items-center justify-center bg-gray-100 text-gray-400 text-xs p-2 rounded ${className}`} 
-        style={{ minWidth: '100px', minHeight: '40px' }}
-      >
-        Logo Unavailable
-      </div>
-    );
-  }
-
   return (
-    <img 
-      src={logos[currentLogoIndex]} 
-      alt="Iridium Logo" 
-      className={`object-contain ${className}`}
-      onError={handleError}
-      referrerPolicy="no-referrer"
-    />
+    <svg 
+      id="Layer_2" 
+      data-name="Layer 2" 
+      xmlns="http://www.w3.org/2000/svg" 
+      xmlnsXlink="http://www.w3.org/1999/xlink" 
+      viewBox="0 0 222.95 47.57"
+      className={className}
+    >
+      <defs>
+        <style>
+          {`
+            .cls-1 { fill: url(#Silver-6); }
+            .cls-2 { fill: url(#Silver); }
+            .cls-3 { fill: url(#Silver-2); }
+            .cls-4 { fill: url(#Gold_2-2); stroke: url(#Gold_Radial-2); stroke-width: .37px; }
+            .cls-4, .cls-5 { stroke-miterlimit: 10; }
+            .cls-6 { fill: url(#Silver-5); }
+            .cls-7 { fill: url(#Silver-3); }
+            .cls-8 { fill: url(#Silver-8); }
+            .cls-9 { fill: #151310; }
+            .cls-10 { fill: url(#Silver-7); }
+            .cls-11 { fill: url(#Silver-4); }
+            .cls-5 { fill: url(#Gold_2); stroke: url(#Gold_Radial); stroke-width: .56px; }
+          `}
+        </style>
+        <linearGradient id="Silver" x1="0" y1="23.78" x2="74.99" y2="23.78" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#e5e2df"/>
+          <stop offset="0" stopColor="#ded9d6"/>
+          <stop offset=".06" stopColor="#cfcac8"/>
+          <stop offset=".18" stopColor="#a8a4a6"/>
+          <stop offset=".26" stopColor="#8b878d"/>
+          <stop offset=".52" stopColor="#f3f4f4"/>
+          <stop offset=".58" stopColor="#e4e5e5"/>
+          <stop offset=".7" stopColor="#bfbec0"/>
+          <stop offset=".86" stopColor="#847f84"/>
+          <stop offset=".88" stopColor="#807b80"/>
+          <stop offset="1" stopColor="#d1d3d4"/>
+          <stop offset="1" stopColor="#a7a9ac"/>
+        </linearGradient>
+        <linearGradient id="Gold_2" data-name="Gold 2" x1="5.6" y1="24.48" x2="33.44" y2="24.48" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#f8ca10"/>
+          <stop offset=".25" stopColor="#fff8d2"/>
+          <stop offset=".3" stopColor="#f8edc0"/>
+          <stop offset=".4" stopColor="#e8d193"/>
+          <stop offset=".54" stopColor="#cea54c"/>
+          <stop offset=".6" stopColor="#c3922c"/>
+          <stop offset=".87" stopColor="#f0d986"/>
+          <stop offset="1" stopColor="#fff8d2"/>
+        </linearGradient>
+        <radialGradient id="Gold_Radial" data-name="Gold Radial" cx="19.52" cy="-52.06" fx="19.52" fy="-52.06" r="16.08" gradientTransform="translate(0 79.76) scale(1 1.06)" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#fff8d2"/>
+          <stop offset=".1" stopColor="#fbf0c0"/>
+          <stop offset=".31" stopColor="#f2de94"/>
+          <stop offset=".37" stopColor="#f0d986"/>
+          <stop offset=".69" stopColor="#e9ba1f"/>
+          <stop offset="1" stopColor="#c3922c"/>
+        </radialGradient>
+        <linearGradient id="Gold_2-2" data-name="Gold 2" x1="20.49" x2="69.39" xlinkHref="#Gold_2"/>
+        <radialGradient id="Gold_Radial-2" data-name="Gold Radial" cx="44.88" cy="-52.06" fx="44.88" fy="-52.06" r="21.42" xlinkHref="#Gold_Radial"/>
+        <linearGradient id="Silver-2" data-name="Silver" x1="69.27" y1="23.87" x2="283.38" y2="23.87" xlinkHref="#Silver"/>
+        <linearGradient id="Silver-3" data-name="Silver" x1="69.27" y1="23.64" x2="283.38" y2="23.64" xlinkHref="#Silver"/>
+        <linearGradient id="Silver-4" data-name="Silver" x1="69.27" y1="23.53" x2="283.38" y2="23.53" xlinkHref="#Silver"/>
+        <linearGradient id="Silver-5" data-name="Silver" x1="69.27" y1="23.75" x2="283.38" y2="23.75" xlinkHref="#Silver"/>
+        <linearGradient id="Silver-6" data-name="Silver" x1="69.27" y1="23.64" x2="283.39" y2="23.64" xlinkHref="#Silver"/>
+        <linearGradient id="Silver-7" data-name="Silver" x1="69.27" y1="23.52" x2="283.38" y2="23.52" xlinkHref="#Silver"/>
+        <linearGradient id="Silver-8" data-name="Silver" x1="69.27" y1="23.42" x2="283.38" y2="23.42" xlinkHref="#Silver"/>
+      </defs>
+      <g id="TEXT">
+        <g>
+          <g>
+            <g>
+              <ellipse className="cls-9" cx="37.49" cy="23.78" rx="33.99" ry="20.28"/>
+              <path className="cls-2" d="M37.49,3.5c18.77,0,33.99,9.08,33.99,20.28s-15.22,20.28-33.99,20.28S3.5,34.99,3.5,23.78,18.72,3.5,37.49,3.5M37.49,0C16.47,0,0,10.45,0,23.78s16.47,23.78,37.49,23.78,37.49-10.45,37.49-23.78S58.52,0,37.49,0h0Z"/>
+            </g>
+            <g>
+              <polygon className="cls-5" points="21.8 6.05 5.6 42.91 17.37 42.91 33.44 6.05 21.8 6.05"/>
+              <path className="cls-4" d="M36.71,6.05l-4.19,9.83h19.18s4.52.07,2.45,3.39c-2.07,3.32-4.63,3.6-7.91,3.53-3.28-.07-16.66,0-16.66,0l-9.08,20.1h12.34l4.32-10.13h6.39s2.07.09,1.63,2.67l-.31,7.47h12.74v-12.57s.26-2.2-2.03-2.43c0,0,12.71-1.17,13.81-13.15,0,0-.16-8.5-10.91-8.5s-21.77-.21-21.77-.21Z"/>
+            </g>
+          </g>
+          <g>
+            <path className="cls-3" d="M205.96,12.16c.12,0,.01.66,0,.9-.47,3.76-.92,7.52-1.37,11.27-.16,1.33.35.73.86.09,3.2-3.89,6.54-7.69,9.66-11.65.15-.19.32-.38.52-.49.21-.12.47-.14.72-.14,1.53,0,3.06,0,4.59,0,.46.02,1.15-.1,1.22.52.22,1.55.29,3.11.54,4.65.06.44.12.87.18,1.31.07.52.15,1.08-.09,1.57-1.55,3.33-3.12,6.66-4.7,9.98-.14.3-.33.57-.55.81-1.35,1.36-2.76,2.66-4.13,4-.19.18-.4.37-.64.46-.2.08-.42.1-.63.1-1.03,0-2.06,0-3.08,0-.42,0-.97-.02-.73-.6,1.9-4.08,3.87-8.17,5.76-12.23.04-.08.07-.16.1-.23.05-.12.04-.19-.03-.15-3.24,3.82-6.5,7.67-9.67,11.57-.42.48-.74,1.12-1.29,1.47-.31.18-.72.18-1.07.18-1.65-.02-3.29,0-4.94,0-.36,0-.82-.03-.78-.51.47-4.29,1.17-8.61,1.46-12.91h0c-.28.44-.52,1-.77,1.48-1.7,3.69-3.5,7.35-5.1,11.09-.14.38-.37.76-.79.83-1.02.07-2.05,0-3.07.03-.18,0-.37,0-.54-.02-.38,0-.47-.33-.52-.66-.05-.31-.08-.61-.11-.92-.08-1.03-.21-2.06-.34-3.09-.09-.51.03-1.02.27-1.48,1.28-2.75,2.53-5.51,3.84-8.24.3-.63.54-1.33.95-1.9.39-.57.88-1.06,1.39-1.53,1.82-1.67,3.56-3.43,5.37-5.11.33-.3.74-.47,1.2-.47h6.61"/>
+            <path className="cls-7" d="M104.51,12.19c-.9-.03-1.31.34-1.64,1.14-.56,1.23-1.13,2.45-1.7,3.67-.2.44-.46,1,.25,1.05,3.61.1,7.23-.09,10.84.1.76.07,1.58.15,2.25.53.96.61.18,1.88-.38,2.49-.98,1.01-2.45,1.49-3.84,1.5-5.84.03-6.95.02-10.43.01-.62-.01-1.3.05-1.65.63-1.7,3.43-3.34,7.25-5.08,10.66-.51.98-.12,1.15.8,1.13,1.71,0,3.42,0,5.13,0,.81.02,1.28-.29,1.58-1.03.65-1.4,1.48-3.08,2.14-4.49.34-.79.95-.91,1.74-.88.79.01,1.58-.03,2.36.03.84.04,1.64.4,1.85,1.29.35,1.36.01,2.76-.12,4.12-.08.81.57.82,1.17.83,1.47.01,2.93,0,4.42.02.58,0,1.16.02,1.73-.03.13-.01.26-.03.37-.08.67-.27.48-1.15.55-1.74.08-1.31.17-2.63.29-3.94.08-.84.12-1.7-.15-2.52-.09-.28-.2-.65.02-.89.18-.21.53-.32.8-.43,2.95-1.18,5.09-3.34,6.35-6.23.97-2.03.62-4.6-1.42-5.8-2.34-1.41-5.12-1.13-7.72-1.16-1.21,0-2.46,0-3.65,0h-6.85Z"/>
+            <path className="cls-11" d="M141.4,18.1c-1.69-.03-3.39,0-5.09-.02-1.21-.01-.96-.71-.57-1.53.52-1.13,1.03-2.25,1.55-3.38.31-.73.83-1.1,1.64-1.08,2.67-.01,5.33-.01,8,0,2.71.04,5.56.13,7.97,1.48,2.24,1.22,3.2,3.78,2.61,6.19-.98,4.76-3.77,8.83-7.76,11.57-4.63,3.28-10.57,3.75-16.1,3.61-1.76,0-3.52,0-5.29,0-.28,0-.63-.01-.84-.18-.14-.12-.15-.32-.07-.57.09-.29.24-.58.37-.87,1.51-3.2,3.02-6.42,4.52-9.6.16-.33.36-.69.68-.87.35-.22.8-.22,1.2-.22,1.57,0,3.15.01,4.72.02.49-.01,1.27.04,1.09.72-.66,1.71-1.58,3.34-2.33,5.01-.32.65-.19,1.09.61,1.11.61.02,1.23,0,1.85-.07,3.81-.32,7.18-2.92,8.56-6.49.42-1.21,1.05-2.81.26-3.97-.94-1.11-3.32-.81-4.67-.87-.96,0-1.94,0-2.9-.01h-.02Z"/>
+            <path className="cls-6" d="M175.72,12.13c.92,0,1.85,0,2.77,0,.24,0,.56.01.71.21.14.19,0,.52-.11.74-.2.42-.41.83-.61,1.25-1.67,3.66-3.44,7.27-5.06,10.95-.31.75-.58,1.52-.85,2.28-.07.22-.13.45-.15.69-.11,1.37.95,1.76,2.15,1.68,2.37-.06,4.16-1.92,5.22-3.88,1.79-3.51,3.39-7.12,5.1-10.66.36-.77.7-1.54,1.04-2.32.17-.42.44-.84.92-.9,1.93-.1,3.87,0,5.81-.04.31,0,.75-.02.93.24.12.18,0,.51-.12.74-.37.77-.74,1.52-1.09,2.3-1.55,3.38-3.12,6.75-4.7,10.11-1.21,2.91-3.15,5.36-5.78,7.12-3.35,2.34-7.62,3.04-11.63,2.62-5.82-.53-7.09-4.9-4.6-9.66,1.92-4.11,3.95-8.18,5.79-12.33.37-.98.79-1.19,1.83-1.14.8.01,1.61,0,2.41,0h.02Z"/>
+            <path className="cls-1" d="M158.34,35.09c.78.03,1.46-.19,1.81-.94,2.4-5.12,4.88-10.21,7.32-15.32.9-1.93,1.82-3.85,2.72-5.78.13-.35.08-.69-.33-.78-.27-.07-.57-.06-.85-.06-1.78.04-3.58-.07-5.36.05-.73.08-1.13.71-1.39,1.34-.3.67-.6,1.33-.91,1.99-2.89,6.04-5.83,12.05-8.67,18.1-.14.3-.36.76-.24,1.04.18.37.69.35,1.05.36h4.84Z"/>
+            <path className="cls-10" d="M121.68,34.95c-.81,0-1.63,0-2.46,0-.7,0-1.28-.18-.92-1.03,2.92-6.26,5.96-12.47,8.98-18.68.32-.67.62-1.34.92-2.02.15-.33.36-.68.65-.87.38-.25.88-.26,1.33-.26,1.63,0,3.26,0,4.89,0,.92,0,1.2.36.76,1.24-.36.76-.72,1.52-1.08,2.28-2.9,6.17-6,12.25-8.85,18.44-.34.73-1.03.93-1.77.9-.82,0-1.63,0-2.42,0h-.03Z"/>
+            <path className="cls-8" d="M89.8,34.86c.46,0,.96-.02,1.35-.29.27-.18.46-.46.63-.77,2.29-4.81,4.54-9.66,6.85-14.46.96-2.01,1.94-4.01,2.91-6.02.6-1.18.22-1.36-.93-1.34-1.55,0-3.1.02-4.65,0-.45,0-.95,0-1.33.26-.33.21-.55.61-.72.98-1.48,3.12-2.97,6.25-4.46,9.37-1.73,3.62-3.42,7.25-5.17,10.85-.14.3-.36.75-.25,1.03.2.43.81.37,1.22.37.75,0,1.5,0,2.22,0h2.33Z"/>
+          </g>
+        </g>
+      </g>
+    </svg>
   );
 }
