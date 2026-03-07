@@ -469,7 +469,9 @@ export default function Track() {
                 "h-full rounded-full transition-all duration-500",
                 isReady 
                   ? "bg-gradient-to-r from-emerald-600 via-emerald-400 to-emerald-600 bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite] shadow-[0_0_15px_rgba(16,185,129,0.5)]" 
-                  : "bg-gradient-to-r from-[#b69951] via-[#c7a95e] to-[#b69951] bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite] shadow-[0_0_15px_rgba(182,153,81,0.5)]"
+                  : job.status === 4
+                    ? "bg-gradient-to-r from-[#b69951] via-[#fceb9f] to-[#8a733d] bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite] shadow-[0_0_20px_rgba(182,153,81,0.5)]"
+                    : "bg-gradient-to-r from-[#b69951] via-[#c7a95e] to-[#b69951] bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite] shadow-[0_0_15px_rgba(182,153,81,0.5)]"
               )}
               initial={{ width: '0%' }}
               animate={{ width: `${progressPercentage}%` }}
@@ -527,11 +529,13 @@ export default function Track() {
                         theme === 'dark' ? "bg-[#121212]" : "bg-white",
                         isReady 
                           ? "border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.3)]" 
-                          : "border-[#b69951] shadow-[0_0_15px_rgba(182,153,81,0.3)]"
+                          : idx === 4 
+                            ? "border-[#b69951] shadow-[0_0_20px_rgba(182,153,81,0.5)]"
+                            : "border-[#b69951] shadow-[0_0_15px_rgba(182,153,81,0.3)]"
                       )}>
                         <div className={clsx(
                           "w-3 h-3 rounded-full",
-                          isReady ? "bg-emerald-500" : "bg-[#b69951] animate-pulse"
+                          isReady ? "bg-emerald-500" : idx === 4 ? "bg-gradient-to-r from-[#b69951] to-[#8a733d] animate-pulse" : "bg-[#b69951] animate-pulse"
                         )}></div>
                       </div>
                     ) : (
@@ -547,7 +551,9 @@ export default function Track() {
                       <p className={clsx(
                         "font-bold transition-all",
                         isCurrent 
-                          ? theme === 'dark' ? "text-white text-lg" : "text-zinc-900 text-lg"
+                          ? idx === 4 
+                            ? "text-transparent bg-clip-text bg-gradient-to-r from-[#b69951] via-[#fceb9f] to-[#8a733d] text-lg animate-[shimmer_2s_linear_infinite] bg-[length:200%_100%]"
+                            : theme === 'dark' ? "text-white text-lg" : "text-zinc-900 text-lg"
                           : "text-zinc-400 text-base"
                       )}>
                         {status}

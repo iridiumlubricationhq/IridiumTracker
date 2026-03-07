@@ -1,47 +1,37 @@
 export const STATUS_LIVE_PHRASES: Record<string, Record<number, string[]>> = {
   ms: {
     0: [
-      'Mendaftarkan kenderaan ke dalam sistem...',
-      'Menyemak rekod servis terdahulu...',
-      'Menyediakan borang pemeriksaan digital...',
-      'Menugaskan juruteknik bertauliah Iridium...',
-      'Menyusun jadual kerja bengkel hari ini...',
-      'Mengesahkan butiran pelanggan & kenderaan...',
-      'Menyediakan tag kunci kenderaan...',
-      'Memasukkan data ke dalam pangkalan data...'
+      'Mendaftar kenderaan...',
+      'Menyemak rekod...',
+      'Menyediakan borang digital...',
+      'Menugaskan mekanik...',
+      'Mengesahkan butiran...',
+      'Menyediakan tag kunci...'
     ],
     1: [
-      'Memeriksa sistem enjin utama & bendalir...',
-      'Menilai keadaan brek, pad & cakera...',
-      'Menguji tahap cecair penyejuk & brek...',
-      'Menyemak tekanan & kedalaman bunga tayar...',
-      'Mengenalpasti isu teknikal melalui sensor...',
-      'Melakukan imbasan komputer diagnostik penuh...',
-      'Meneliti sebarang kebocoran minyak bawah enjin...',
-      'Memeriksa keadaan bateri & sistem alternator...',
-      'Menyemak sistem lampu & isyarat kenderaan...'
+      'Memeriksa enjin...',
+      'Menilai brek...',
+      'Menguji bendalir...',
+      'Menyemak tayar...',
+      'Melakukan imbasan komputer...',
+      'Memeriksa bateri...',
+      'Menyemak lampu...'
     ],
     2: [
-      'Menukar minyak enjin sintetik gred premium...',
-      'Mengganti penapis minyak dengan unit baru...',
-      'Melaraskan komponen mekanikal yang longgar...',
-      'Mengetatkan skru & bolt mengikut tork piawaian...',
-      'Melakukan pelinciran pada sendi & engsel...',
-      'Menjalankan prosedur standard Iridium Service...',
-      'Membersihkan palam pencucuh (spark plugs)...',
-      'Menyemak ketegangan tali sawat (beltings)...',
-      'Membersihkan penapis udara enjin...'
+      'Menukar minyak enjin...',
+      'Mengganti penapis...',
+      'Mengetatkan komponen...',
+      'Melakukan pelinciran...',
+      'Membersihkan palam pencucuh...',
+      'Menyemak tali sawat...',
+      'Membersihkan penapis udara...'
     ],
     3: [
-      'Mengambil alat ganti tulen dari stor Iridium...',
-      'Memasang komponen prestasi yang baru...',
-      'Menentukur sensor elektronik yang diganti...',
-      'Memastikan pemasangan yang kemas & selamat...',
-      'Menguji kefungsian alat ganti baru dipasang...',
-      'Menyemak kesesuaian bahagian teknikal spesifik...',
-      'Menyambung semula litar elektrik & soket...',
-      'Membuang udara dalam sistem brek (bleeding)...',
-      'Mengganti penapis kabin aircond...'
+      'Mengambil alat ganti...',
+      'Memasang komponen...',
+      'Mengkalibrasi sensor...',
+      'Menguji alat ganti...',
+      'Mengganti penapis aircond...'
     ],
     4: [
       'Melakukan ujian jalan raya untuk prestasi...',
@@ -49,66 +39,53 @@ export const STATUS_LIVE_PHRASES: Record<string, Record<number, string[]>> = {
       'Memastikan tiada sebarang kebocoran bendalir...',
       'Mengesahkan kualiti mengikut piawaian Iridium...',
       'Menandatangani sijil pemeriksaan kualiti akhir...',
-      'Pemeriksaan keselamatan menyeluruh (QC)...',
+      'Melakukan pemeriksaan keselamatan menyeluruh (QC)...',
       'Menetapkan semula (reset) komputer servis...',
       'Memastikan semua skru roda diketatkan semula...',
       'Menyemak tahap emisi & bunyi enjin...'
     ],
     5: [
-      'Membasuh badan kenderaan dengan syampu khas...',
-      'Membersihkan ruang dalaman & vakum permaidani...',
-      'Mengilatkan rim tayar & memberi lapisan pelindung...',
-      'Menyembur wangian segar eksklusif Iridium...',
-      'Memastikan kereta berkilat & bebas habuk...',
-      'Menyusun barang peribadi pelanggan dengan rapi...',
-      'Mengelap cermin depan & belakang sehingga jernih...',
-      'Membersihkan papan pemuka (dashboard)...',
-      'Menyapu pengilat pada bahagian plastik luaran...'
+      'Membasuh kenderaan...',
+      'Memvakum dalaman...',
+      'Mengilat tayar...',
+      'Menyembur pewangi...',
+      'Membersihkan cermin...',
+      'Membersihkan papan pemuka...'
     ]
   },
   en: {
     0: [
-      'Registering vehicle in the system...',
-      'Checking previous service records...',
-      'Preparing digital inspection forms...',
-      'Assigning certified Iridium technician...',
-      'Organizing workshop schedule for today...',
-      'Confirming customer & vehicle details...',
-      'Preparing vehicle key tags...',
-      'Entering data into the database...'
+      'Registering vehicle...',
+      'Checking records...',
+      'Preparing forms...',
+      'Assigning mechanic...',
+      'Confirming details...',
+      'Preparing key tags...'
     ],
     1: [
-      'Checking main engine systems & fluids...',
-      'Evaluating brake pads & discs condition...',
-      'Testing coolant & brake fluid levels...',
-      'Checking tire pressure & tread depth...',
-      'Identifying technical issues via sensors...',
-      'Performing full diagnostic computer scan...',
-      'Inspecting for oil leaks under the engine...',
-      'Checking battery & alternator condition...',
-      'Verifying vehicle lights & signals...'
+      'Inspecting engine...',
+      'Evaluating brakes...',
+      'Testing fluids...',
+      'Checking tires...',
+      'Running computer scan...',
+      'Checking battery...',
+      'Verifying lights...'
     ],
     2: [
-      'Changing to premium grade synthetic engine oil...',
-      'Replacing oil filter with a new unit...',
-      'Adjusting loose mechanical components...',
-      'Tightening screws & bolts to torque specs...',
-      'Lubricating joints & hinges...',
-      'Executing Iridium Service standard procedures...',
+      'Changing engine oil...',
+      'Replacing filters...',
+      'Tightening components...',
+      'Lubricating parts...',
       'Cleaning spark plugs...',
-      'Checking beltings tension...',
-      'Cleaning engine air filter...'
+      'Checking beltings...',
+      'Cleaning air filter...'
     ],
     3: [
-      'Retrieving genuine parts from Iridium store...',
-      'Installing new performance components...',
-      'Calibrating replaced electronic sensors...',
-      'Ensuring neat & secure installation...',
-      'Testing functionality of newly installed parts...',
-      'Verifying specific technical part compatibility...',
-      'Reconnecting electrical circuits & sockets...',
-      'Bleeding air from the brake system...',
-      'Replacing aircond cabin filter...'
+      'Retrieving parts...',
+      'Installing components...',
+      'Calibrating sensors...',
+      'Testing parts...',
+      'Replacing cabin filter...'
     ],
     4: [
       'Performing road test for performance...',
@@ -116,21 +93,18 @@ export const STATUS_LIVE_PHRASES: Record<string, Record<number, string[]>> = {
       'Ensuring no fluid leaks...',
       'Confirming quality to Iridium standards...',
       'Signing final quality inspection certificate...',
-      'Comprehensive safety check (QC)...',
+      'Performing comprehensive safety check (QC)...',
       'Resetting service computer...',
       'Ensuring all wheel bolts are retightened...',
       'Checking emission levels & engine noise...'
     ],
     5: [
-      'Washing vehicle body with special shampoo...',
-      'Cleaning interior & vacuuming carpets...',
-      'Polishing tire rims & applying protectant...',
-      'Spraying exclusive Iridium fresh fragrance...',
-      'Ensuring car is shiny & dust-free...',
-      'Neatly organizing customer personal items...',
-      'Wiping front & rear glass until crystal clear...',
-      'Cleaning the dashboard...',
-      'Applying polish to exterior plastic parts...'
+      'Washing vehicle...',
+      'Vacuuming interior...',
+      'Polishing tires...',
+      'Applying fragrance...',
+      'Cleaning windows...',
+      'Cleaning dashboard...'
     ]
   }
 };
@@ -148,7 +122,7 @@ export const STATUS_SUBTITLES: Record<string, Record<number, string>> = {
   en: {
     0: 'Your vehicle has been safely received at our service center.',
     1: 'Our experts are performing a comprehensive inspection.',
-    2: 'Service process is being carried out according to standards.',
+    2: 'The service process is being carried out according to standards.',
     3: 'Parts are being installed by certified technicians.',
     4: 'Final quality inspection to ensure everything is perfect.',
     5: 'Your vehicle is being cleaned and polished.',
@@ -269,7 +243,7 @@ export const STATUS_NAMES: Record<string, string[]> = {
     'Pemeriksaan Sedang Dijalankan',
     'Servis Sedang Dijalankan',
     'Penggantian Alat Ganti',
-    'Pemeriksaan Kualiti',
+    'Pemeriksaan 45 Check-Point',
     'Cucian Kereta',
     'Sedia untuk Diambil'
   ],
@@ -278,7 +252,7 @@ export const STATUS_NAMES: Record<string, string[]> = {
     'Inspection in Progress',
     'Service in Progress',
     'Parts Replacement',
-    'Quality Check',
+    '45 Check-Point Inspection',
     'Car Wash',
     'Ready for Pickup'
   ]

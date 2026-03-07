@@ -69,7 +69,7 @@ async function startServer() {
     }
   });
 
-  app.get('/api/jobs', requireAuth, (req, res) => {
+  app.get('/api/jobs', requireAuth, (_req, res) => {
     const jobs = db.prepare('SELECT * FROM jobs ORDER BY created_at DESC').all();
     res.json(jobs);
   });
@@ -108,7 +108,7 @@ async function startServer() {
     res.json({ success: true });
   });
 
-  app.delete('/api/jobs', requireAuth, (req, res) => {
+  app.delete('/api/jobs', requireAuth, (_req, res) => {
     db.prepare('DELETE FROM jobs').run();
     res.json({ success: true });
   });

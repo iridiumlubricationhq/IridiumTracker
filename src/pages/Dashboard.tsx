@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 
-import { Plus, LogOut, QrCode, Trash2, CheckCircle2, Clock, Car, Wrench, Search, Moon, Sun, Globe } from 'lucide-react';
+import { Plus, LogOut, QrCode, Trash2, CheckCircle2, Clock, Car, Wrench, Search, Moon, Sun, Globe, ArrowRight, X } from 'lucide-react';
 import { format, addHours } from 'date-fns';
 import { motion, AnimatePresence } from 'motion/react';
 import { Logo } from '../components/Logo';
@@ -439,14 +439,14 @@ export default function Dashboard() {
                       />
                       <div className="flex flex-wrap gap-2">
                         {[
-                          { label: '+1 Jam', value: 1 },
-                          { label: '+3 Jam', value: 3 },
-                          { label: '+5 Jam', value: 5 },
-                          { label: 'Esok', value: 24 },
-                          { label: '+3 Hari', value: 72 },
+                          { ms: '+1J', en: '+1h', value: 1 },
+                          { ms: '+3J', en: '+3h', value: 3 },
+                          { ms: '+5J', en: '+5h', value: 5 },
+                          { ms: 'Esok', en: 'Tmrw', value: 24 },
+                          { ms: '+3H', en: '+3d', value: 72 },
                         ].map((opt) => (
                           <button
-                            key={opt.label}
+                            key={opt.value}
                             type="button"
                             onClick={() => {
                               const now = new Date();
@@ -460,7 +460,7 @@ export default function Dashboard() {
                               theme === 'dark' ? "bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:text-[#b69951] hover:border-[#b69951]/50" : "bg-zinc-100 border-zinc-200 text-zinc-500 hover:text-[#b69951] hover:border-[#b69951]/50"
                             )}
                           >
-                            {opt.label}
+                            {language === 'ms' ? opt.ms : opt.en}
                           </button>
                         ))}
                       </div>
@@ -683,25 +683,60 @@ export default function Dashboard() {
                         )}
                       </div>
                       {editingJobETA === job.id ? (
-                        <div className="flex gap-2">
-                          <input
-                            type="datetime-local"
-                            value={newETA}
-                            onChange={(e) => setNewETA(e.target.value)}
-                            className={clsx(
-                              "w-full px-2 py-1 border rounded-lg font-bold text-sm",
-                              theme === 'dark' ? "bg-[#050403] border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"
-                            )}
-                          />
-                          <button
-                            onClick={() => {
-                              updateETA(job.id, newETA);
-                              setEditingJobETA(null);
-                            }}
-                            className="bg-[#b69951] text-black px-3 py-1 rounded-lg font-bold text-xs"
-                          >
-                            {t.save}
-                          </button>
+                        <div className="flex flex-col gap-2">
+                          <div className="flex gap-2">
+                            <input
+                              type="datetime-local"
+                              value={newETA}
+                              onChange={(e) => setNewETA(e.target.value)}
+                              className={clsx(
+                                "w-full px-2 py-1 border rounded-lg font-bold text-sm",
+                                theme === 'dark' ? "bg-[#050403] border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"
+                              )}
+                            />
+                            <button
+                              onClick={() => {
+                                updateETA(job.id, newETA);
+                                setEditingJobETA(null);
+                              }}
+                              className="bg-[#b69951] text-black px-3 py-1 rounded-lg flex items-center justify-center hover:bg-[#c7a95e] transition-colors"
+                              title={t.save}
+                            >
+                              <CheckCircle2 className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => setEditingJobETA(null)}
+                              className={clsx(
+                                "px-3 py-1 rounded-lg flex items-center justify-center transition-colors",
+                                theme === 'dark' ? "bg-zinc-800 text-red-400 hover:bg-zinc-700" : "bg-zinc-200 text-red-500 hover:bg-zinc-300"
+                              )}
+                              title={t.cancel}
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                          <div className="flex gap-2">
+                            {[
+                              { ms: '+1J', en: '+1h', value: 1 },
+                              { ms: '+3J', en: '+3h', value: 3 },
+                              { ms: '+5J', en: '+5h', value: 5 },
+                            ].map((opt) => (
+                              <button
+                                key={opt.value}
+                                onClick={() => {
+                                  const date = new Date();
+                                  date.setHours(date.getHours() + opt.value);
+                                  setNewETA(format(date, "yyyy-MM-dd'T'HH:mm"));
+                                }}
+                                className={clsx(
+                                  "flex-1 px-2 py-1 rounded-md text-[10px] font-bold transition-colors",
+                                  theme === 'dark' ? "bg-zinc-800 text-zinc-300 hover:bg-zinc-700" : "bg-zinc-200 text-zinc-700 hover:bg-zinc-300"
+                                )}
+                              >
+                                {language === 'ms' ? opt.ms : opt.en}
+                              </button>
+                            ))}
+                          </div>
                         </div>
                       ) : (
                         <div className={clsx(
@@ -720,34 +755,34 @@ export default function Dashboard() {
 
                     <div>
                       {!isDone && (
-                        <>
-                          <div className="flex justify-between items-center mb-1">
-                            <p className="text-[11px] text-zinc-500 uppercase tracking-widest font-bold">{t.liveStatus}</p>
-                            <button
-                              onClick={() => updateStatus(job.id, job.status + 1)}
-                              className="text-[10px] font-black text-[#b69951] hover:text-[#c7a95e] flex items-center gap-1 bg-[#b69951]/10 px-2 py-1 rounded-lg transition-all"
-                            >
-                              {t.nextStep}
-                              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" /></svg>
-                            </button>
+                        <div className="flex items-center justify-between gap-4 mb-3">
+                          <div className="flex-1">
+                            <p className="text-[11px] text-zinc-500 uppercase tracking-widest font-bold mb-1">{t.liveStatus}</p>
+                            <div className="h-4 overflow-hidden">
+                              <AnimatePresence mode="wait">
+                                <motion.p 
+                                  key={phraseIndex}
+                                  initial={{ opacity: 0, x: 5 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  exit={{ opacity: 0, x: -5 }}
+                                  transition={{ duration: 0.3 }}
+                                  className="text-[10px] font-bold text-[#b69951]/60 italic truncate"
+                                >
+                                  {STATUS_LIVE_PHRASES[language][job.status] 
+                                    ? STATUS_LIVE_PHRASES[language][job.status][phraseIndex % STATUS_LIVE_PHRASES[language][job.status].length]
+                                    : 'Sedang diproses...'}
+                                </motion.p>
+                              </AnimatePresence>
+                            </div>
                           </div>
-                          <div className="h-4 mb-3 overflow-hidden">
-                            <AnimatePresence mode="wait">
-                              <motion.p 
-                                key={phraseIndex}
-                                initial={{ opacity: 0, x: 5 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -5 }}
-                                transition={{ duration: 0.3 }}
-                                className="text-[10px] font-bold text-[#b69951]/60 italic truncate"
-                              >
-                                {STATUS_LIVE_PHRASES[language][job.status] 
-                                  ? STATUS_LIVE_PHRASES[language][job.status][phraseIndex % STATUS_LIVE_PHRASES[language][job.status].length]
-                                  : 'Sedang diproses...'}
-                              </motion.p>
-                            </AnimatePresence>
-                          </div>
-                        </>
+                          <button
+                            onClick={() => updateStatus(job.id, job.status + 1)}
+                            className="flex-shrink-0 flex items-center justify-center w-9 h-9 bg-[#b69951] text-black rounded-xl hover:bg-[#c7a95e] transition-all shadow-md hover:shadow-lg active:scale-95"
+                            title={t.nextStep}
+                          >
+                            <ArrowRight className="w-5 h-5" strokeWidth={2.5} />
+                          </button>
+                        </div>
                       )}
                       {isDone && (
                         <div className="mb-4">
@@ -761,6 +796,7 @@ export default function Dashboard() {
                         {statusNames.map((status, idx) => {
                           const isCurrent = job.status === idx;
                           const isCompleted = job.status > idx;
+                          const isQualityCheck = idx === 4;
                           
                           return (
                             <button
@@ -772,7 +808,9 @@ export default function Dashboard() {
                                 isCurrent
                                   ? isDone 
                                     ? 'bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite] text-black shadow-[0_0_20px_rgba(16,185,129,0.3)]'
-                                    : 'bg-gradient-to-r from-[#b69951] to-[#8a733d] text-black shadow-[0_0_15px_rgba(182,153,81,0.2)]'
+                                    : isQualityCheck
+                                      ? 'bg-gradient-to-r from-[#b69951] via-[#fceb9f] to-[#b69951] bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite] text-black shadow-[0_0_20px_rgba(182,153,81,0.4)]'
+                                      : 'bg-gradient-to-r from-[#b69951] to-[#8a733d] text-black shadow-[0_0_15px_rgba(182,153,81,0.2)]'
                                   : isCompleted
                                   ? isDone ? 'bg-emerald-500/10 text-emerald-500/40' : 'bg-zinc-800/30 text-zinc-500 hover:bg-zinc-800/50'
                                   : theme === 'dark' ? 'bg-[#0a0a0a] border border-zinc-800/80 text-zinc-500 hover:border-zinc-700 hover:text-zinc-300' : 'bg-zinc-50 border border-zinc-100 text-zinc-400 hover:border-zinc-200 hover:text-zinc-600'
@@ -781,7 +819,7 @@ export default function Dashboard() {
                               {status}
                               {job.status >= idx && (
                                 <CheckCircle2 className={`w-4 h-4 ${
-                                  isCurrent ? 'text-black' : isDone ? 'text-emerald-500' : 'text-[#b69951]'
+                                  isCurrent ? (isQualityCheck ? 'text-white' : 'text-black') : isDone ? 'text-emerald-500' : 'text-[#b69951]'
                                 }`} />
                               )}
                             </button>
