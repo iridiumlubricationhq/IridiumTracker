@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface LogoProps {
   className?: string;
@@ -6,14 +6,51 @@ interface LogoProps {
 
 export function Logo({ className = '' }: LogoProps) {
   const baseUrl = import.meta.env.BASE_URL || '/';
-  // Ensure the path starts with a slash and does not have double slashes
-  const imagePath = `${baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`}logo.webp`.replace(/\/+/g, '/');
   
+  // Configuration
+  const LOGO_VERSION = '2'; // Increment this to bust cache
+  const LOGO_BASE_PATH = 'assets/images/';
+  const LOGO_FILENAME = 'logo';
+  
+  // Priority order for formats
+  const formats = ['png', 'webp', 'jpg'];
+  
+  const [currentFormatIndex, setCurrentFormatIndex] = useState(0);
+  const [hasError, setHasError] = useState(false);
+
+  // Derived state
+  const format = formats[currentFormatIndex];
+  // Ensure path is constructed immediately during render
+  const imageSrc = `${baseUrl}${LOGO_BASE_PATH}${LOGO_FILENAME}.${format}?v=${LOGO_VERSION}`.replace(/\/+/g, '/');
+
+  const handleError = () => {
+    console.warn(`[Logo System] Failed to load logo format: ${formats[currentFormatIndex]}`);
+    
+    if (currentFormatIndex < formats.length - 1) {
+      // Try next format
+      setCurrentFormatIndex(prev => prev + 1);
+    } else {
+      // All formats failed
+      console.error('[Logo System] All logo formats failed to load.');
+      setHasError(true);
+    }
+  };
+
+  if (hasError) {
+    // Fallback UI if all images fail
+    return (
+      <div className={`flex items-center justify-center bg-gray-100 text-gray-400 text-xs p-2 rounded ${className}`} style={{ minWidth: '100px', minHeight: '40px' }}>
+        Logo Unavailable
+      </div>
+    );
+  }
+
   return (
     <img 
-      src={imagePath} 
+      src={imageSrc} 
       alt="Iridium Logo" 
       className={`object-contain ${className}`}
+      onError={handleError}
       referrerPolicy="no-referrer"
     />
   );
