@@ -125,6 +125,12 @@ async function startServer() {
   } else {
     app.use(express.static(path.join(__dirname, 'dist'), { acceptRanges: false }));
     app.get('*', (req, res) => {
+      // Prevent serving index.html for missing static assets
+      // This fixes the issue where missing images return 200 OK (index.html) instead of 404
+      if (req.path.match(/\.(png|jpg|jpeg|gif|webp|svg|css|js|woff|woff2|ttf|eot|ico|json|map)$/)) {
+        res.status(404).send('Not found');
+        return;
+      }
       res.sendFile(path.join(__dirname, 'dist', 'index.html'));
     });
   }
