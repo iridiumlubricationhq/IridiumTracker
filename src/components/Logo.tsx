@@ -7,7 +7,7 @@ interface LogoProps {
 export function Logo({ className = '' }: LogoProps) {
   const baseUrl = import.meta.env.BASE_URL || '/';
   // Ensure the path starts with a slash and does not have double slashes
-  const imagePath = `${baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`}logo.webp?t=${Date.now()}`.replace(/\/+/g, '/');
+  const imagePath = `${baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`}logo.webp`.replace(/\/+/g, '/');
   
   return (
     <img 
