@@ -33,6 +33,27 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [phraseIndex, setPhraseIndex] = useState(0);
+  const [editingJobETA, setEditingJobETA] = useState<string | null>(null);
+  const [newETA, setNewETA] = useState('');
+
+  const updateETA = async (id: string, estimated_completion: string) => {
+    const token = getToken();
+    try {
+      const dateObj = new Date(estimated_completion);
+      const formattedDate = format(dateObj, 'dd MMM yyyy, h:mm a');
+      await fetch(`/api/jobs/${id}/eta`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ estimated_completion: formattedDate })
+      });
+      fetchJobs();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   // Theme and Language state
   const [theme, setTheme] = useState<'light' | 'dark'>(() => (localStorage.getItem('dashboard_theme') as 'light' | 'dark') || 'dark');
@@ -647,18 +668,54 @@ export default function Dashboard() {
                     </div>
                     
                     <div className="mb-8">
-                      <p className="text-[11px] text-zinc-500 uppercase tracking-widest font-bold mb-1.5">{t.estimatedCompletionLabel}</p>
-                      <div className={clsx(
-                        "flex items-center gap-2 font-bold",
-                        theme === 'dark' ? "text-zinc-200" : "text-zinc-700"
-                      )}>
-                        {isDone ? (
-                          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                        ) : (
-                          <Clock className="w-4 h-4 text-[#b69951]" />
+                      <div className="flex justify-between items-center mb-1.5">
+                        <p className="text-[11px] text-zinc-500 uppercase tracking-widest font-bold">{t.estimatedCompletionLabel}</p>
+                        {!isDone && (
+                          <button 
+                            onClick={() => {
+                              setEditingJobETA(job.id);
+                              setNewETA('');
+                            }}
+                            className="text-[10px] font-black text-[#b69951] hover:text-[#c7a95e]"
+                          >
+                            {t.edit}
+                          </button>
                         )}
-                        {job.estimated_completion}
                       </div>
+                      {editingJobETA === job.id ? (
+                        <div className="flex gap-2">
+                          <input
+                            type="datetime-local"
+                            value={newETA}
+                            onChange={(e) => setNewETA(e.target.value)}
+                            className={clsx(
+                              "w-full px-2 py-1 border rounded-lg font-bold text-sm",
+                              theme === 'dark' ? "bg-[#050403] border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"
+                            )}
+                          />
+                          <button
+                            onClick={() => {
+                              updateETA(job.id, newETA);
+                              setEditingJobETA(null);
+                            }}
+                            className="bg-[#b69951] text-black px-3 py-1 rounded-lg font-bold text-xs"
+                          >
+                            {t.save}
+                          </button>
+                        </div>
+                      ) : (
+                        <div className={clsx(
+                          "flex items-center gap-2 font-bold",
+                          theme === 'dark' ? "text-zinc-200" : "text-zinc-700"
+                        )}>
+                          {isDone ? (
+                            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                          ) : (
+                            <Clock className="w-4 h-4 text-[#b69951]" />
+                          )}
+                          {job.estimated_completion}
+                        </div>
+                      )}
                     </div>
 
                     <div>

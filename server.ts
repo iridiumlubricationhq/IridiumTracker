@@ -94,6 +94,14 @@ async function startServer() {
     res.json(job);
   });
 
+  app.put('/api/jobs/:id/eta', requireAuth, (req, res) => {
+    const { estimated_completion } = req.body;
+    const { id } = req.params;
+    db.prepare('UPDATE jobs SET estimated_completion = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?').run(estimated_completion, id);
+    const job = db.prepare('SELECT * FROM jobs WHERE id = ?').get(id);
+    res.json(job);
+  });
+
   app.delete('/api/jobs/:id', requireAuth, (req, res) => {
     const { id } = req.params;
     db.prepare('DELETE FROM jobs WHERE id = ?').run(id);

@@ -204,6 +204,8 @@ export const UI_TRANSLATIONS: Record<string, Record<string, string | string[]>> 
     nextStep: 'Langkah Seterusnya',
     created: 'Dicipta',
     newEntry: 'Kemasukan Baru',
+    edit: 'Edit',
+    save: 'Simpan',
     serviceOptions: ['Servis Minor', 'Servis Major', 'Diagnostik', 'Aircond', 'Enjin'],
     carBrands: ['Proton', 'Perodua', 'Toyota', 'Honda', 'Mazda', 'BMW', 'Mercedes']
   },
@@ -254,6 +256,8 @@ export const UI_TRANSLATIONS: Record<string, Record<string, string | string[]>> 
     nextStep: 'Next Step',
     created: 'Created',
     newEntry: 'New Entry',
+    edit: 'Edit',
+    save: 'Save',
     serviceOptions: ['Minor Service', 'Major Service', 'Diagnostic', 'Aircond', 'Engine'],
     carBrands: ['Proton', 'Perodua', 'Toyota', 'Honda', 'Mazda', 'BMW', 'Mercedes']
   }
