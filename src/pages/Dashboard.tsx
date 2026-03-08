@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 
-import { Plus, LogOut, QrCode, Trash2, CheckCircle2, Clock, Car, Wrench, Search, Moon, Sun, Globe, ArrowRight, X } from 'lucide-react';
+import { Plus, LogOut, QrCode, Trash2, CheckCircle2, Clock, Car, Wrench, Search, Moon, Sun, Globe, ArrowRight, X, Sparkles, Pencil, SlidersHorizontal } from 'lucide-react';
 import { format, addHours } from 'date-fns';
 import { motion, AnimatePresence } from 'motion/react';
 import { Logo } from '../components/Logo';
@@ -33,8 +33,30 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [phraseIndex, setPhraseIndex] = useState(0);
-  const [editingJobETA, setEditingJobETA] = useState<string | null>(null);
-  const [newETA, setNewETA] = useState('');
+  
+  // New state for editing fields
+  const [editingField, setEditingField] = useState<{ id: string, field: 'plate' | 'model' | 'combined' } | null>(null);
+  const [tempValue, setTempValue] = useState('');
+  const [tempService, setTempService] = useState('');
+  const [tempETA, setTempETA] = useState('');
+
+  const updateJobField = async (id: string, field: 'plate_number' | 'car_model' | 'service_type', value: string) => {
+    const token = getToken();
+    try {
+      await fetch(`/api/jobs/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ [field]: value })
+      });
+      setEditingField(null);
+      fetchJobs();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const updateETA = async (id: string, estimated_completion: string) => {
     const token = getToken();
@@ -238,8 +260,8 @@ export default function Dashboard() {
         theme === 'dark' ? "bg-[#050403] border-[#b69951]/20" : "bg-white border-[#b69951]/20"
       )}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Logo className="h-8" />
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Logo className="h-10 sm:h-8" />
             <div className="hidden flex items-center gap-2">
               <div className="w-8 h-8 bg-gradient-to-br from-[#b69951] to-[#8a733d] rounded-lg flex items-center justify-center">
                 <Wrench className="w-4 h-4 text-black" />
@@ -250,8 +272,8 @@ export default function Dashboard() {
               )}>IRIDIUM</h1>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="flex gap-2 mr-2">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex gap-1.5 sm:gap-2 mr-0 sm:mr-2">
               <button 
                 onClick={() => {
                   const nextLang = language === 'ms' ? 'en' : 'ms';
@@ -259,12 +281,12 @@ export default function Dashboard() {
                   localStorage.setItem('dashboard_lang', nextLang);
                 }}
                 className={clsx(
-                  "p-2 rounded-xl border transition-colors",
+                  "p-3 sm:p-2 rounded-xl border transition-colors",
                   theme === 'dark' ? "bg-[#121212] border-[#b69951]/20 text-zinc-400" : "bg-zinc-100 border-zinc-200 text-zinc-600"
                 )}
                 title={t.chooseLanguage}
               >
-                <Globe className="w-4 h-4" />
+                <Globe className="w-5 h-5 sm:w-4 sm:h-4" />
               </button>
               <button 
                 onClick={() => {
@@ -273,12 +295,12 @@ export default function Dashboard() {
                   localStorage.setItem('dashboard_theme', nextTheme);
                 }}
                 className={clsx(
-                  "p-2 rounded-xl border transition-colors",
+                  "p-3 sm:p-2 rounded-xl border transition-colors",
                   theme === 'dark' ? "bg-[#121212] border-[#b69951]/20 text-zinc-400" : "bg-zinc-100 border-zinc-200 text-zinc-600"
                 )}
                 title={t.chooseTheme}
               >
-                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                {theme === 'dark' ? <Sun className="w-5 h-5 sm:w-4 sm:h-4" /> : <Moon className="w-5 h-5 sm:w-4 sm:h-4" />}
               </button>
             </div>
             <button
@@ -600,6 +622,7 @@ export default function Dashboard() {
               job.plate_number.toLowerCase().includes(searchQuery.toLowerCase()) || 
               job.car_model.toLowerCase().includes(searchQuery.toLowerCase())
             )
+            .sort((a, b) => a.status - b.status)
             .map(job => {
               const isDone = job.status === statusNames.length - 1;
               
@@ -626,14 +649,115 @@ export default function Dashboard() {
                       : theme === 'dark' ? 'bg-[#050403]/40 border-zinc-800/80' : 'bg-zinc-50/50 border-zinc-100'
                   )}>
                     <div>
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <Car className={`w-5 h-5 ${isDone ? 'text-emerald-500' : 'text-[#b69951]'}`} />
-                        <span className={clsx(
-                          "font-mono font-black text-2xl tracking-tight",
-                          theme === 'dark' ? "text-white" : "text-zinc-900"
-                        )}>{job.plate_number}</span>
-                      </div>
-                      <p className="text-zinc-400 font-semibold">{job.car_model}</p>
+                      {editingField?.id === job.id && editingField.field === 'plate' ? (
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <input
+                            type="text"
+                            value={tempValue}
+                            onChange={(e) => setTempValue(e.target.value.toUpperCase())}
+                            className={clsx(
+                              "w-32 px-2 py-1 border rounded-lg font-mono font-black text-xl uppercase outline-none focus:ring-2 focus:ring-[#b69951]",
+                              theme === 'dark' ? "bg-[#050403] border-zinc-800 text-white" : "bg-white border-zinc-200 text-zinc-900"
+                            )}
+                            autoFocus
+                          />
+                          <button
+                            onClick={() => updateJobField(job.id, 'plate_number', tempValue)}
+                            className="p-1.5 bg-[#b69951] text-black rounded-lg hover:bg-[#c7a95e]"
+                          >
+                            <CheckCircle2 className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => setEditingField(null)}
+                            className={clsx(
+                              "p-1.5 rounded-lg",
+                              theme === 'dark' ? "bg-zinc-800 text-zinc-400 hover:bg-zinc-700" : "bg-zinc-200 text-zinc-500 hover:bg-zinc-300"
+                            )}
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2 mb-1.5 group">
+                          <Car className={`w-5 h-5 ${isDone ? 'text-emerald-500' : 'text-[#b69951]'}`} />
+                          <span className={clsx(
+                            "font-mono font-black text-2xl tracking-tight",
+                            theme === 'dark' ? "text-white" : "text-zinc-900"
+                          )}>{job.plate_number}</span>
+                          {!isDone && (
+                            <button
+                              onClick={() => {
+                                setEditingField({ id: job.id, field: 'plate' });
+                                setTempValue(job.plate_number);
+                              }}
+                              className="opacity-0 group-hover:opacity-100 p-1.5 text-zinc-500 hover:text-[#b69951] transition-all"
+                            >
+                              <Pencil className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
+                      )}
+
+                      {editingField?.id === job.id && editingField.field === 'model' ? (
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="text"
+                              value={tempValue}
+                              onChange={(e) => setTempValue(e.target.value)}
+                              className={clsx(
+                                "w-full px-2 py-1 border rounded-lg font-semibold text-sm outline-none focus:ring-2 focus:ring-[#b69951]",
+                                theme === 'dark' ? "bg-[#050403] border-zinc-800 text-white" : "bg-white border-zinc-200 text-zinc-900"
+                              )}
+                              autoFocus
+                            />
+                            <button
+                              onClick={() => updateJobField(job.id, 'car_model', toTitleCase(tempValue))}
+                              className="p-1.5 bg-[#b69951] text-black rounded-lg hover:bg-[#c7a95e]"
+                            >
+                              <CheckCircle2 className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => setEditingField(null)}
+                              className={clsx(
+                                "p-1.5 rounded-lg",
+                                theme === 'dark' ? "bg-zinc-800 text-zinc-400 hover:bg-zinc-700" : "bg-zinc-200 text-zinc-500 hover:bg-zinc-300"
+                              )}
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                          <div className="flex flex-wrap gap-1">
+                            {(t.carBrands as string[]).map(brand => (
+                              <button
+                                key={brand}
+                                onClick={() => setTempValue(brand + ' ')}
+                                className={clsx(
+                                  "px-2 py-1 border rounded-lg text-[10px] font-bold transition-all",
+                                  theme === 'dark' ? "bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:text-[#b69951]" : "bg-zinc-100 border-zinc-200 text-zinc-500 hover:text-[#b69951]"
+                                )}
+                              >
+                                {brand}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2 group">
+                          <p className="text-zinc-400 font-semibold">{job.car_model}</p>
+                          {!isDone && (
+                            <button
+                              onClick={() => {
+                                setEditingField({ id: job.id, field: 'model' });
+                                setTempValue(job.car_model);
+                              }}
+                              className="opacity-0 group-hover:opacity-100 p-1 text-zinc-500 hover:text-[#b69951] transition-all"
+                            >
+                              <Pencil className="w-3 h-3" />
+                            </button>
+                          )}
+                        </div>
+                      )}
                     </div>
                     <div className="flex gap-2">
                       <button
@@ -660,97 +784,96 @@ export default function Dashboard() {
                   
                   <div className="p-6 flex-1">
                     <div className="mb-5">
-                      <p className="text-[11px] text-zinc-500 uppercase tracking-widest font-bold mb-1.5">{t.serviceType}</p>
-                      <p className={clsx(
-                        "font-bold",
-                        theme === 'dark' ? "text-zinc-200" : "text-zinc-700"
-                      )}>{job.service_type}</p>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <p className="text-[11px] text-zinc-500 uppercase tracking-widest font-bold">{t.serviceType}</p>
+                        {!isDone && editingField?.id !== job.id && (
+                          <button
+                            onClick={() => {
+                              setEditingField({ id: job.id, field: 'combined' });
+                              setTempService(job.service_type);
+                              setTempETA(job.estimated_completion);
+                            }}
+                            className="p-1.5 text-zinc-500 hover:text-[#b69951] transition-all"
+                          >
+                            <SlidersHorizontal className="w-4 h-4" />
+                          </button>
+                        )}
+                      </div>
+                      
+                      {editingField?.id === job.id && editingField.field === 'combined' ? (
+                        <div className="flex flex-col gap-4">
+                          <div className="flex flex-wrap gap-2">
+                            {(t.serviceOptions as string[]).map(option => (
+                              <button
+                                key={option}
+                                onClick={() => setTempService(option)}
+                                className={clsx(
+                                  "px-3 py-2 rounded-lg text-[10px] font-black transition-all border",
+                                  option === tempService
+                                    ? 'bg-[#b69951] border-[#b69951] text-black shadow-[0_0_10px_rgba(182,153,81,0.3)]'
+                                    : theme === 'dark' ? 'bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:border-zinc-700' : 'bg-zinc-100 border-zinc-200 text-zinc-500 hover:border-zinc-300'
+                                )}
+                              >
+                                {option}
+                              </button>
+                            ))}
+                          </div>
+                          <input
+                            type="datetime-local"
+                            value={tempETA}
+                            onChange={e => setTempETA(e.target.value)}
+                            className={clsx(
+                              "w-full px-3 py-2 border rounded-lg font-bold text-sm outline-none focus:ring-2 focus:ring-[#b69951]",
+                              theme === 'dark' ? "bg-[#050403] border-zinc-800 text-white" : "bg-white border-zinc-200 text-zinc-900"
+                            )}
+                          />
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => {
+                                updateJobField(job.id, 'service_type', tempService);
+                                updateETA(job.id, tempETA);
+                                setEditingField(null);
+                              }}
+                              className="p-2 bg-[#b69951] text-black rounded-lg hover:bg-[#c7a95e] transition-colors"
+                              title={t.save}
+                            >
+                              <CheckCircle2 className="w-5 h-5" />
+                            </button>
+                            <button
+                              onClick={() => setEditingField(null)}
+                              className={clsx(
+                                "p-2 rounded-lg transition-colors",
+                                theme === 'dark' ? "bg-zinc-800 text-red-400 hover:bg-zinc-700" : "bg-zinc-200 text-red-500 hover:bg-zinc-300"
+                              )}
+                              title={t.cancel}
+                            >
+                              <X className="w-5 h-5" />
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className={clsx(
+                          "font-bold",
+                          theme === 'dark' ? "text-zinc-200" : "text-zinc-700"
+                        )}>{job.service_type}</p>
+                      )}
                     </div>
                     
                     <div className="mb-8">
                       <div className="flex justify-between items-center mb-1.5">
                         <p className="text-[11px] text-zinc-500 uppercase tracking-widest font-bold">{t.estimatedCompletionLabel}</p>
-                        {!isDone && (
-                          <button 
-                            onClick={() => {
-                              setEditingJobETA(job.id);
-                              setNewETA('');
-                            }}
-                            className="text-[10px] font-black text-[#b69951] hover:text-[#c7a95e]"
-                          >
-                            {t.edit}
-                          </button>
-                        )}
                       </div>
-                      {editingJobETA === job.id ? (
-                        <div className="flex flex-col gap-2">
-                          <div className="flex gap-2">
-                            <input
-                              type="datetime-local"
-                              value={newETA}
-                              onChange={(e) => setNewETA(e.target.value)}
-                              className={clsx(
-                                "w-full px-2 py-1 border rounded-lg font-bold text-sm",
-                                theme === 'dark' ? "bg-[#050403] border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"
-                              )}
-                            />
-                            <button
-                              onClick={() => {
-                                updateETA(job.id, newETA);
-                                setEditingJobETA(null);
-                              }}
-                              className="bg-[#b69951] text-black px-3 py-1 rounded-lg flex items-center justify-center hover:bg-[#c7a95e] transition-colors"
-                              title={t.save}
-                            >
-                              <CheckCircle2 className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={() => setEditingJobETA(null)}
-                              className={clsx(
-                                "px-3 py-1 rounded-lg flex items-center justify-center transition-colors",
-                                theme === 'dark' ? "bg-zinc-800 text-red-400 hover:bg-zinc-700" : "bg-zinc-200 text-red-500 hover:bg-zinc-300"
-                              )}
-                              title={t.cancel}
-                            >
-                              <X className="w-4 h-4" />
-                            </button>
-                          </div>
-                          <div className="flex gap-2">
-                            {[
-                              { ms: '+1J', en: '+1h', value: 1 },
-                              { ms: '+3J', en: '+3h', value: 3 },
-                              { ms: '+5J', en: '+5h', value: 5 },
-                            ].map((opt) => (
-                              <button
-                                key={opt.value}
-                                onClick={() => {
-                                  const date = new Date();
-                                  date.setHours(date.getHours() + opt.value);
-                                  setNewETA(format(date, "yyyy-MM-dd'T'HH:mm"));
-                                }}
-                                className={clsx(
-                                  "flex-1 px-2 py-1 rounded-md text-[10px] font-bold transition-colors",
-                                  theme === 'dark' ? "bg-zinc-800 text-zinc-300 hover:bg-zinc-700" : "bg-zinc-200 text-zinc-700 hover:bg-zinc-300"
-                                )}
-                              >
-                                {language === 'ms' ? opt.ms : opt.en}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      ) : (
-                        <div className={clsx(
-                          "flex items-center gap-2 font-bold",
-                          theme === 'dark' ? "text-zinc-200" : "text-zinc-700"
-                        )}>
-                          {isDone ? (
-                            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                          ) : (
-                            <Clock className="w-4 h-4 text-[#b69951]" />
-                          )}
-                          {job.estimated_completion}
-                        </div>
-                      )}
+                      <div className={clsx(
+                        "flex items-center gap-2 font-bold",
+                        theme === 'dark' ? "text-zinc-200" : "text-zinc-700"
+                      )}>
+                        {isDone ? (
+                          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                        ) : (
+                          <Clock className="w-4 h-4 text-[#b69951]" />
+                        )}
+                        {job.estimated_completion}
+                      </div>
                     </div>
 
                     <div>
@@ -796,7 +919,8 @@ export default function Dashboard() {
                         {statusNames.map((status, idx) => {
                           const isCurrent = job.status === idx;
                           const isCompleted = job.status > idx;
-                          const isQualityCheck = idx === 4;
+                          const isQualityCheck = idx === 2;
+                          const isCarWash = idx === 5;
                           
                           return (
                             <button
@@ -816,7 +940,18 @@ export default function Dashboard() {
                                   : theme === 'dark' ? 'bg-[#0a0a0a] border border-zinc-800/80 text-zinc-500 hover:border-zinc-700 hover:text-zinc-300' : 'bg-zinc-50 border border-zinc-100 text-zinc-400 hover:border-zinc-200 hover:text-zinc-600'
                               )}
                             >
-                              {status}
+                              <span className="flex items-center gap-2">
+                                {status}
+                                {isCarWash && (
+                                  <span className={clsx(
+                                    "ml-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-300 text-[10px] font-black uppercase tracking-widest text-amber-950 border border-yellow-100/50 shadow-[0_0_15px_rgba(251,191,36,0.5)]",
+                                    isCurrent && "animate-[shimmer_2s_linear_infinite] bg-[length:200%_100%] scale-105 shadow-[0_0_25px_rgba(251,191,36,0.8)] ring-2 ring-amber-400/50"
+                                  )}>
+                                    <Sparkles className={clsx("w-3 h-3 fill-amber-950/20", isCurrent && "animate-pulse")} />
+                                    Free
+                                  </span>
+                                )}
+                              </span>
                               {job.status >= idx && (
                                 <CheckCircle2 className={`w-4 h-4 ${
                                   isCurrent ? (isQualityCheck ? 'text-white' : 'text-black') : isDone ? 'text-emerald-500' : 'text-[#b69951]'

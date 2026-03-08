@@ -1,5 +1,5 @@
 {
   "name": "Iridium Tracker",
-  "description": "Premium real-time vehicle service tracking system for Iridium Workshop.",
+   "description": "Premium real-time vehicle service tracking system for Iridium Workshop.",
   "requestFramePermissions": []
 }

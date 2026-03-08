@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Car, CheckCircle2, Circle, Clock, Wrench, Moon, Sun, Globe } from 'lucide-react';
+import { Car, CheckCircle2, Circle, Clock, Wrench, Moon, Sun, Globe, Sparkles } from 'lucide-react';
 import { STATUS_LIVE_PHRASES, STATUS_SUBTITLES, UI_TRANSLATIONS, STATUS_NAMES } from '../constants/statusPhrases';
 import { Logo } from '../components/Logo';
 import { motion, AnimatePresence } from 'motion/react';
@@ -469,7 +469,7 @@ export default function Track() {
                 "h-full rounded-full transition-all duration-500",
                 isReady 
                   ? "bg-gradient-to-r from-emerald-600 via-emerald-400 to-emerald-600 bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite] shadow-[0_0_15px_rgba(16,185,129,0.5)]" 
-                  : job.status === 4
+                  : job.status === 2
                     ? "bg-gradient-to-r from-[#b69951] via-[#fceb9f] to-[#8a733d] bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite] shadow-[0_0_20px_rgba(182,153,81,0.5)]"
                     : "bg-gradient-to-r from-[#b69951] via-[#c7a95e] to-[#b69951] bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite] shadow-[0_0_15px_rgba(182,153,81,0.5)]"
               )}
@@ -529,13 +529,13 @@ export default function Track() {
                         theme === 'dark' ? "bg-[#121212]" : "bg-white",
                         isReady 
                           ? "border-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.3)]" 
-                          : idx === 4 
+                          : idx === 2 
                             ? "border-[#b69951] shadow-[0_0_20px_rgba(182,153,81,0.5)]"
                             : "border-[#b69951] shadow-[0_0_15px_rgba(182,153,81,0.3)]"
                       )}>
                         <div className={clsx(
                           "w-3 h-3 rounded-full",
-                          isReady ? "bg-emerald-500" : idx === 4 ? "bg-gradient-to-r from-[#b69951] to-[#8a733d] animate-pulse" : "bg-[#b69951] animate-pulse"
+                          isReady ? "bg-emerald-500" : idx === 2 ? "bg-gradient-to-r from-[#b69951] to-[#8a733d] animate-pulse" : "bg-[#b69951] animate-pulse"
                         )}></div>
                       </div>
                     ) : (
@@ -551,12 +551,23 @@ export default function Track() {
                       <p className={clsx(
                         "font-bold transition-all",
                         isCurrent 
-                          ? idx === 4 
+                          ? idx === 2 
                             ? "text-transparent bg-clip-text bg-gradient-to-r from-[#b69951] via-[#fceb9f] to-[#8a733d] text-lg animate-[shimmer_2s_linear_infinite] bg-[length:200%_100%]"
                             : theme === 'dark' ? "text-white text-lg" : "text-zinc-900 text-lg"
                           : "text-zinc-400 text-base"
                       )}>
-                        {status}
+                        <span className="flex items-center gap-2">
+                          {status}
+                          {idx === 5 && (
+                            <span className={clsx(
+                              "ml-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-300 text-[10px] font-black uppercase tracking-widest text-amber-950 border border-yellow-100/50 shadow-[0_0_15px_rgba(251,191,36,0.5)]",
+                              isCurrent && "animate-[shimmer_2s_linear_infinite] bg-[length:200%_100%] scale-105 shadow-[0_0_25px_rgba(251,191,36,0.8)] ring-2 ring-amber-400/50"
+                            )}>
+                              <Sparkles className={clsx("w-3 h-3 fill-amber-950/20", isCurrent && "animate-pulse")} />
+                              Free
+                            </span>
+                          )}
+                        </span>
                       </p>
                       {isCurrent && (
                         <div className="mt-1">

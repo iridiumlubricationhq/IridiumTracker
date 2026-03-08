@@ -18,22 +18,6 @@ export const STATUS_LIVE_PHRASES: Record<string, Record<number, string[]>> = {
       'Menyemak lampu...'
     ],
     2: [
-      'Menukar minyak enjin...',
-      'Mengganti penapis...',
-      'Mengetatkan komponen...',
-      'Melakukan pelinciran...',
-      'Membersihkan palam pencucuh...',
-      'Menyemak tali sawat...',
-      'Membersihkan penapis udara...'
-    ],
-    3: [
-      'Mengambil alat ganti...',
-      'Memasang komponen...',
-      'Mengkalibrasi sensor...',
-      'Menguji alat ganti...',
-      'Mengganti penapis aircond...'
-    ],
-    4: [
       'Melakukan ujian jalan raya untuk prestasi...',
       'Menyemak semula semua kerja teknikal dilakukan...',
       'Memastikan tiada sebarang kebocoran bendalir...',
@@ -43,6 +27,22 @@ export const STATUS_LIVE_PHRASES: Record<string, Record<number, string[]>> = {
       'Menetapkan semula (reset) komputer servis...',
       'Memastikan semua skru roda diketatkan semula...',
       'Menyemak tahap emisi & bunyi enjin...'
+    ],
+    3: [
+      'Menukar minyak enjin...',
+      'Mengganti penapis...',
+      'Mengetatkan komponen...',
+      'Melakukan pelinciran...',
+      'Membersihkan palam pencucuh...',
+      'Menyemak tali sawat...',
+      'Membersihkan penapis udara...'
+    ],
+    4: [
+      'Mengambil alat ganti...',
+      'Memasang komponen...',
+      'Mengkalibrasi sensor...',
+      'Menguji alat ganti...',
+      'Mengganti penapis aircond...'
     ],
     5: [
       'Membasuh kenderaan...',
@@ -72,22 +72,6 @@ export const STATUS_LIVE_PHRASES: Record<string, Record<number, string[]>> = {
       'Verifying lights...'
     ],
     2: [
-      'Changing engine oil...',
-      'Replacing filters...',
-      'Tightening components...',
-      'Lubricating parts...',
-      'Cleaning spark plugs...',
-      'Checking beltings...',
-      'Cleaning air filter...'
-    ],
-    3: [
-      'Retrieving parts...',
-      'Installing components...',
-      'Calibrating sensors...',
-      'Testing parts...',
-      'Replacing cabin filter...'
-    ],
-    4: [
       'Performing road test for performance...',
       'Reviewing all technical work performed...',
       'Ensuring no fluid leaks...',
@@ -97,6 +81,22 @@ export const STATUS_LIVE_PHRASES: Record<string, Record<number, string[]>> = {
       'Resetting service computer...',
       'Ensuring all wheel bolts are retightened...',
       'Checking emission levels & engine noise...'
+    ],
+    3: [
+      'Changing engine oil...',
+      'Replacing filters...',
+      'Tightening components...',
+      'Lubricating parts...',
+      'Cleaning spark plugs...',
+      'Checking beltings...',
+      'Cleaning air filter...'
+    ],
+    4: [
+      'Retrieving parts...',
+      'Installing components...',
+      'Calibrating sensors...',
+      'Testing parts...',
+      'Replacing cabin filter...'
     ],
     5: [
       'Washing vehicle...',
@@ -113,18 +113,18 @@ export const STATUS_SUBTITLES: Record<string, Record<number, string>> = {
   ms: {
     0: 'Kenderaan anda telah selamat diterima di pusat servis kami.',
     1: 'Pakar kami sedang melakukan pemeriksaan menyeluruh.',
-    2: 'Proses servis sedang dijalankan mengikut piawaian.',
-    3: 'Alat ganti sedang dipasang oleh juruteknik bertauliah.',
-    4: 'Pemeriksaan kualiti akhir untuk memastikan segalanya sempurna.',
+    2: 'Pemeriksaan kualiti akhir untuk memastikan segalanya sempurna.',
+    3: 'Proses servis sedang dijalankan mengikut piawaian.',
+    4: 'Alat ganti sedang dipasang oleh juruteknik bertauliah.',
     5: 'Kenderaan anda sedang dibersihkan dan dikilatkan.',
     6: 'Semua urusan telah selesai. Terima kasih!'
   },
   en: {
     0: 'Your vehicle has been safely received at our service center.',
     1: 'Our experts are performing a comprehensive inspection.',
-    2: 'The service process is being carried out according to standards.',
-    3: 'Parts are being installed by certified technicians.',
-    4: 'Final quality inspection to ensure everything is perfect.',
+    2: 'Final quality inspection to ensure everything is perfect.',
+    3: 'The service process is being carried out according to standards.',
+    4: 'Parts are being installed by certified technicians.',
     5: 'Your vehicle is being cleaned and polished.',
     6: 'Everything is complete. Thank you!'
   }
@@ -241,18 +241,18 @@ export const STATUS_NAMES: Record<string, string[]> = {
   ms: [
     'Kenderaan Diterima',
     'Pemeriksaan Sedang Dijalankan',
+    'Pemeriksaan 45 Check-Point',
     'Servis Sedang Dijalankan',
     'Penggantian Alat Ganti',
-    'Pemeriksaan 45 Check-Point',
     'Cucian Kereta',
     'Sedia untuk Diambil'
   ],
   en: [
     'Vehicle Received',
     'Inspection in Progress',
+    '45 Check-Point Inspection',
     'Service in Progress',
     'Parts Replacement',
-    '45 Check-Point Inspection',
     'Car Wash',
     'Ready for Pickup'
   ]

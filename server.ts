@@ -31,7 +31,7 @@ db.exec(`
 
 // Insert or update default advisor based on environment variables
 const adminUsername = process.env.ADMIN_USERNAME || 'admin';
-const adminPassword = process.env.ADMIN_PASSWORD || 'Iridium123';
+const adminPassword = process.env.ADMIN_PASSWORD || 'iridium123';
 
 const checkAdvisor = db.prepare('SELECT * FROM advisors WHERE username = ?').get(adminUsername);
 if (!checkAdvisor) {
@@ -98,6 +98,38 @@ async function startServer() {
     const { estimated_completion } = req.body;
     const { id } = req.params;
     db.prepare('UPDATE jobs SET estimated_completion = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?').run(estimated_completion, id);
+    const job = db.prepare('SELECT * FROM jobs WHERE id = ?').get(id);
+    res.json(job);
+  });
+
+  app.put('/api/jobs/:id', requireAuth, (req, res) => {
+    const { plate_number, car_model, service_type } = req.body;
+    const { id } = req.params;
+    
+    const updates = [];
+    const values = [];
+    
+    if (plate_number !== undefined) {
+      updates.push('plate_number = ?');
+      values.push(plate_number);
+    }
+    if (car_model !== undefined) {
+      updates.push('car_model = ?');
+      values.push(car_model);
+    }
+    if (service_type !== undefined) {
+      updates.push('service_type = ?');
+      values.push(service_type);
+    }
+    
+    if (updates.length > 0) {
+      updates.push('updated_at = CURRENT_TIMESTAMP');
+      values.push(id);
+      
+      const query = `UPDATE jobs SET ${updates.join(', ')} WHERE id = ?`;
+      db.prepare(query).run(...values);
+    }
+    
     const job = db.prepare('SELECT * FROM jobs WHERE id = ?').get(id);
     res.json(job);
   });
